@@ -1,20 +1,22 @@
 package org.jetbrains.plugins.innerbuilder;
 
-public class SelectorOption implements Option {
-    private final InnerBuilderOption option;
+import java.util.Map;
+
+public final class MultiValueOption implements Option {
+    private final Map<String, InnerBuilderOption> optionMap;
     private final String caption;
     private final char mnemonic;
     private final String toolTip;
 
-    private SelectorOption(final Builder builder) {
-        option = builder.option;
+    private MultiValueOption(Builder builder) {
+        optionMap = builder.optionMap;
         caption = builder.caption;
         mnemonic = builder.mnemonic;
         toolTip = builder.toolTip;
     }
 
-    public InnerBuilderOption getOption() {
-        return option;
+    public Map<String, InnerBuilderOption> getOptionMap() {
+        return optionMap;
     }
 
     @Override
@@ -37,35 +39,36 @@ public class SelectorOption implements Option {
     }
 
     public static final class Builder {
-        private InnerBuilderOption option;
+        private Map<String, InnerBuilderOption> optionMap;
         private String caption;
         private char mnemonic;
         private String toolTip;
 
-        private Builder() { }
+        private Builder() {
+        }
 
-        public Builder withOption(final InnerBuilderOption option) {
-            this.option = option;
+        public Builder withOptionMap(Map<String, InnerBuilderOption> val) {
+            optionMap = val;
             return this;
         }
 
-        public Builder withCaption(final String caption) {
-            this.caption = caption;
+        public Builder withCaption(String val) {
+            caption = val;
             return this;
         }
 
-        public Builder withMnemonic(final char mnemonic) {
-            this.mnemonic = mnemonic;
+        public Builder withMnemonic(char val) {
+            mnemonic = val;
             return this;
         }
 
-        public Builder withToolTip(final String toolTip) {
-            this.toolTip = toolTip;
+        public Builder withToolTip(String val) {
+            toolTip = val;
             return this;
         }
 
-        public SelectorOption build() {
-            return new SelectorOption(this);
+        public MultiValueOption build() {
+            return new MultiValueOption(this);
         }
     }
 }
